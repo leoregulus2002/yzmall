@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yz.yzmall.dao.CategoryMapper">
+  <resultMap id="BaseResultMap" type="cn.yz.yzmall.entity.Category">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+    <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+    <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
+  </resultMap>
+
+  <resultMap id="CategoryVOMap" type="cn.yz.yzmall.entity.CategoryVO">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+    <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+    <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
+    <collection property="categories" column="category_id" select="cn.yz.yzmall.dao.CategoryMapper.selectAllCategories" />
+  </resultMap>
+    <resultMap id="CategoryVOMap2" type="cn.yz.yzmall.entity.CategoryVO">
+        <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
+        <collection property="products" column="category_id" select="cn.yz.yzmall.dao.ProductMapper.selectTop6ByCategory" />
+    </resultMap>
+    <select id="selectAllCategories" resultMap="CategoryVOMap">
+        SELECT category_id,
+               category_name,
+               category_level,
+               parent_id,
+               category_icon,
+               category_slogan,
+               category_pic,
+               category_bg_color
+        from category
+        where parent_id = #{parentId}
+    </select>
+
+    <select id="selectFirstLevelCategories" resultMap="CategoryVOMap2">
+        select
+            category_id,
+            category_name,
+            category_level,
+            parent_id,
+            category_icon,
+            category_slogan,
+            category_pic,
+            category_bg_color
+        from category where category_level=1
+    </select>
+
+
+<!--  <resultMap id="CategoryVOMap" type="cn.yz.yzmall.entity.CategoryVO">-->
+
+<!--    <id column="category_id1" jdbcType="INTEGER" property="categoryId" />-->
+<!--    <result column="category_name1" jdbcType="VARCHAR" property="categoryName" />-->
+<!--    <result column="category_level1" jdbcType="INTEGER" property="categoryLevel" />-->
+<!--    <result column="parent_id1" jdbcType="INTEGER" property="parentId" />-->
+<!--    <result column="category_icon1" jdbcType="VARCHAR" property="categoryIcon" />-->
+<!--    <result column="category_slogan1" jdbcType="VARCHAR" property="categorySlogan" />-->
+<!--    <result column="category_pic1" jdbcType="VARCHAR" property="categoryPic" />-->
+<!--    <result column="category_bg_color1" jdbcType="VARCHAR" property="categoryBgColor" />-->
+<!--    <collection property="categories" ofType="cn.yz.yzmall.entity.CategoryVO">-->
+<!--      <id column="category_id2" jdbcType="INTEGER" property="categoryId" />-->
+<!--      <result column="category_name2" jdbcType="VARCHAR" property="categoryName" />-->
+<!--      <result column="category_level2" jdbcType="INTEGER" property="categoryLevel" />-->
+<!--      <result column="parent_id2" jdbcType="INTEGER" property="parentId" />-->
+<!--      <collection property="categories" ofType="cn.yz.yzmall.entity.CategoryVO">-->
+<!--        <id column="category_id3" jdbcType="INTEGER" property="categoryId" />-->
+<!--        <result column="category_name3" jdbcType="VARCHAR" property="categoryName" />-->
+<!--        <result column="category_level3" jdbcType="INTEGER" property="categoryLevel" />-->
+<!--        <result column="parent_id3" jdbcType="INTEGER" property="parentId" />-->
+<!--      </collection>-->
+<!--    </collection>-->
+<!--  </resultMap>-->
+<!--  <select id="selectAllCategories" resultMap="CategoryVOMap">-->
+<!--    SELECT-->
+<!--      c1.category_id 'category_id1',-->
+<!--      c1.category_name 'category_name1',-->
+<!--      c1.category_level 'category_level1',-->
+<!--      c1.parent_id 'parent_id1',-->
+<!--      c1.category_icon 'category_icon1',-->
+<!--      c1.category_slogan 'category_slogan1',-->
+<!--      c1.category_bg_color 'category_bg_color1',-->
+<!--      c1.category_pic 'category_pic1',-->
+<!--      c2.category_id 'category_id2',-->
+<!--      c2.category_name 'category_name2',-->
+<!--      c2.category_level 'category_level2',-->
+<!--      c2.parent_id 'parent_id2',-->
+<!--      c3.category_id 'category_id3',-->
+<!--      c3.category_name 'category_name3',-->
+<!--      c3.category_level 'category_level3',-->
+<!--      c3.parent_id 'parent_id3'-->
+<!--    from category c1-->
+<!--           INNER JOIN category c2-->
+<!--                      on c2.parent_id = c1.category_id-->
+<!--           LEFT JOIN category c3-->
+<!--                     on c3.parent_id = c2.category_id-->
+<!--    WHERE c1.category_level = 1-->
+
+
+<!--  </select>-->
+</mapper>

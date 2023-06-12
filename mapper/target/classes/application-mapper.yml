@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yz?characterEncoding=utf-8
+    username: root
+    password: 13462a!!!
+    type: com.alibaba.druid.pool.DruidDataSource
+  data:
+    redis:
+      cluster:
+        nodes: 192.168.190.100:7001,192.168.190.100:7002,192.168.190.100:7003,192.168.190.100:7004,192.168.190.100:7005,192.168.190.100:7006
+        max-redirects: 6
+      lettuce:
+        pool:
+          max-active: 10  #连接池最大连接数
+          max-idle: 8     #连接池中最大空闲连接数
+          max-wait: -1ms  #连接池最大等待阻塞时间
+          min-idle: 0     #连接池中最小空闲数
+      timeout: 5000
+      password: root
+      database: 0
+#      host: 192.168.190.100
+#      port: 6380
+
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*Mapper.xml
+  type-aliases-package: cn.yz.yzmall.entity
+

@@ -1,0 +1,11 @@
+#spring:
+#  config:
+#    use-legacy-processing: true
+#  profiles:
+#    active: mapper,service
+
+spring:
+  profiles:
+    include: mapper,service
+server:
+  port: 8081
